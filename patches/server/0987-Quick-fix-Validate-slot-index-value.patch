@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "maros.prejsa" <maros.prejsa1@gmail.com>
+Date: Mon, 11 Dec 2023 21:24:37 +0100
+Subject: [PATCH] Quick fix: Validate slot index value
+
+
+diff --git a/src/main/java/net/minecraft/world/inventory/AbstractContainerMenu.java b/src/main/java/net/minecraft/world/inventory/AbstractContainerMenu.java
+index c84908095a93d42826b21bf5f3490410fb0a5708..459c555e35c0d3cafd755ef6d9e833986c9efcd3 100644
+--- a/src/main/java/net/minecraft/world/inventory/AbstractContainerMenu.java
++++ b/src/main/java/net/minecraft/world/inventory/AbstractContainerMenu.java
+@@ -378,6 +378,8 @@ public abstract class AbstractContainerMenu {
+     public abstract ItemStack quickMoveStack(Player player, int slot);
+ 
+     public void clicked(int slotIndex, int button, ClickType actionType, Player player) {
++        if (slotIndex < 0)
++            return;
+         try {
+             this.doClick(slotIndex, button, actionType, player);
+         } catch (Exception exception) {
